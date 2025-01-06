@@ -1,0 +1,9 @@
+#banner{
+    background-color: brown;
+    margin: 0px;
+    padding:0px;
+    font-family: Arial, sans-serif; /* Using a common system font */ font-size: 22px; font-weight: bold; color: #ffffff; background-color: red; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); text-align: center; text-transform: uppercase; letter-spacing: 2px;
+    margin:0px;
+   
+    
+}

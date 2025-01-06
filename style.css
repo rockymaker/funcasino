@@ -1,0 +1,89 @@
+body{
+    padding: 0;
+    margin:0;
+    /* background-color:#023020; */
+   
+  background-image: url('back.jpg');
+    
+  background-size: cover; /* Ensures the image covers the entire body */
+  background-position: center center; /* Centers the image */
+  background-attachment: fixed; /* Keeps the background fixed when scrolling (optional) */
+  background-repeat: no-repeat; 
+    
+
+  
+  
+}
+#container{
+    display:flex;
+}
+#bottomdiv{
+    height:20%;
+    width:100%;
+   
+}
+
+#left{
+    height:90vh;
+    width: 20%;
+  
+    
+
+}
+#mid{
+    height:90vh;
+    width:50%;
+   
+   
+}
+#right{
+    height:90vh;
+    width:30%;
+   
+    position: relative;
+   
+
+}
+#spin{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:85%;
+    aspect-ratio: 1/1;
+    background-color:chocolate;
+    border-radius: 50%;
+    bottom: 5px;
+   
+    
+}
+#bottomdiv{
+    width:100%;
+    height:10vh;
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+}
+button{
+    width:3%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: chartreuse;
+}
+#spinContainer{
+    height: 100%;width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+   
+  
+}
+#history{
+    height:100px;
+    width:100%;
+    background-color:red;
+   position:absolute;
+   bottom: 20px;
+    border-radius: 35px;
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Target</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="left.css">
+<link rel="stylesheet" href="right.css">
+<link rel="stylesheet" href="center.css">
+<style>
+    .wheel-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+     
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        green 0% 8.33%, gold 8.33% 16.67%, 
+        green 16.67% 25%, gold 25% 33.33%, 
+        green 33.33% 41.67%, gold 41.67% 50%, 
+        green 50% 58.33%, gold 58.33% 66.67%, 
+        green 66.67% 75%, gold 75% 83.33%, 
+        green 83.33% 91.67%, gold 91.67% 100%
+      );
+      position: absolute;
+    }
+    .wheel::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 95%;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px black;
+    }
+    .wheel span {
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1/1;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  transform-origin: center;
+  transform: rotate(calc(var(--angle) * 1deg)) translate(0, -40%);
+  font-size: 16px;
+  font-weight: bold;
+  align-items: center;
+  text-align: center;
+}
+
+    .center-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%; /* Adjusted size */
+  aspect-ratio: 1/1;
+  background-image: url('frame.png');
+  background-size: cover;
+  background-position: center;
+  background-color: black;
+  border-radius: 50%;
+  border: 2px solid black;
+  padding: 0;
+}
+
+    .arrow {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%) rotate(180deg);
+      width: 20px;
+      height: 40px;
+      background: red;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+    .winner-popup {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 2px solid green;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .winner-history {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+  max-height: 150px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row-reverse; /* Reverses the order visually */
+}
+
+.winner-history ul {
+  display: flex;
+  flex-direction: row-reverse; /* Ensures items appear from right to left */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.winner-history li {
+  margin-right: 10px; /* Adjust spacing between items */
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+    <div id="container">
+        <div id="left">
+            
+            <div id="Score">
+                <h1 class="wl">Score</h1>
+                <div id="scoreCard">
+
+                </div>
+            </div>
+            <div id="winlabel">
+              
+            </div>
+          <div id="winner">
+           
+            
+       
+            
+            <center>
+            <div class="winner-popup" id="winner-popup">Winner: <span id="winner"></span></div>
+        </center>
+            </div id='wl'> 
+         <center>  <label id="wl">Winner</label></center>
+        </div>
+      
+        <div id="mid">
+          <center>
+           <h1 id="banner" style="color:white;">FUN CASINO</h1>
+        </center>
+
+        
+            <div id="spinContainer">
+
+            <div id="spin">
+                <div class="wheel-container">
+                    <div class="wheel" id="wheel">
+                      <!-- Add labels for the segments -->
+                      <span style="--angle: 15; font-size: 3.5em;">1</span>
+                      <span style="--angle: 45; font-size: 3.5em;">2</span>
+                      <span style="--angle: 75; font-size: 3.5em;">3</span>
+                      <span style="--angle: 105; font-size: 3.5em;">4</span>
+                      <span style="--angle: 135; font-size: 3.5em;">5</span>
+                      <span style="--angle: 165;"><img src='silver.png' width='15%'></span>
+                      <span style="--angle: 195;font-size: 3.5em;">6</span>
+                      <span style="--angle: 225; font-size: 3.5em;">7</span>
+                      <span style="--angle: 255; font-size: 3.5em;">8</span>
+                      <span style="--angle: 285; font-size: 3.5em;">9</span>
+                      <span style="--angle: 315; font-size: 3.5em;">10</span>
+                      <span style="--angle: 345;"><img src='gold.png' width='10%'></span>
+                      <div class="center-circle">
+                      </div>
+                    </div>
+                    <div class="arrow"></div>
+                  </div>
+            </div>
+        </div>
+        </div>
+        <div id="right">
+       
+
+            <center><div id="timer">2:00</div></center>
+            <div id="history">
+             <center> <p id="lwin">Last Win</p></center>  
+                <div class="winner-history" id="winner-history">
+    
+                    <ul id="winner-list"></ul>
+                  </div>
+            </div>
+            
+        </div>
+    </div>
+    <div id="bottomdiv">
+        
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>10</button>
+        
+        </div>
+        <audio id="spinSound" src="spin.mp3"></audio>
+        <audio id="countdown-music"> <source src="cmusic.mp3" type="audio/mpeg"> </audio>
+        <script>
+            
+            let hasSpecificWinner = false;
+            let winnersHistory = [];
+            const timerElement = document.getElementById('timer');
+            const winnerPopup = document.getElementById('winner-popup');
+            const winnerText = document.getElementById('winner');
+            const winnerList = document.getElementById('winner-list');
+            const wheel = document.getElementById('wheel');
+            const countdownMusic = document.getElementById('countdown-music');
+            const spinSound = document.getElementById('spinSound'); const winSound = document.getElementById('winSound');
+           
+          
+            // Function to start the countdown
+            function startCountdown() {
+            let countdown = 11; // 2 minutes in seconds 
+            timerElement.textContent = formatTime(countdown);
+             const timerInterval = setInterval(() => {
+               countdown--; 
+               if (countdown === 10) { 
+                countdownMusic.play(); 
+              } if (countdown >= 0) { 
+                timerElement.textContent = formatTime(countdown);
+               } else { 
+                clearInterval(timerInterval); 
+                spinWheel(); } }, 
+                1000);
+               }
+        
+            // Format time as MM:SS
+            function formatTime(seconds) {
+              const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
+              const remainingSeconds = (seconds % 60).toString().padStart(2, '0');
+              return `${minutes}:${remainingSeconds}`;
+            }
+        
+            function spinWheel() {
+              spinSound.play();
+    let rotation = Math.random() * 360;
+    const desiredWinner = localStorage.getItem('desiredWinner');
+    if (desiredWinner !== null && !hasSpecificWinner) {
+        const segmentAngle = 360 / 12; // 360 degrees divided by 12 segments
+        const randomOffset = Math.random() * segmentAngle; // Add randomness within the segment
+        rotation = (12 - desiredWinner) * segmentAngle + randomOffset;
+        hasSpecificWinner = true;
+        localStorage.removeItem('desiredWinner');
+    }
+
+    const totalRotation = 3600 + rotation; // Ensures it spins multiple times
+    wheel.style.transition = 'transform 10s ease-out';
+    wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+    setTimeout(() => {
+        showWinner(rotation % 360);
+        setTimeout(() => {
+            wheel.style.transition = 'none'; // Remove transition
+            wheel.style.transform = `rotate(0deg)`; // Reset to 0 degrees
+            setTimeout(() => {
+                startCountdown(); // Start the countdown again after a short delay
+            }, 100); // Short delay to apply the reset transformation
+        }, 10000);
+    }, 10000);
+}
+
+        
+           
+           
+        function showWinner(finalAngle) {
+          const totalSegments = 12; // Number of segments
+          const segmentAngle = 360 / totalSegments; // Each segment covers 30 degrees
+          const normalizedAngle = (360 - finalAngle % 360) % 360; // Normalize the angle to 0-360 range (reverse the direction)
+          const winningSegment = Math.floor(normalizedAngle / segmentAngle) + 1; // Determine the segment (1 to 12)
+          let winnerContent = '';
+          switch(winningSegment) {
+    case 6:
+      winnerContent = "<img src='silver.png' alt='Gold' style='width: 50px; height: auto;'>";
+      break;
+    case 7:
+      winnerContent = '6';
+      break;
+    case 8:
+      winnerContent = '7';
+      break;
+    case 9:
+      winnerContent = '8';
+      break;
+    case 10:
+      winnerContent = '9';
+      break;
+    case 11:
+      winnerContent = '10';
+      break;
+    case 12:
+      winnerContent = "<img src='gold.png' alt='Gold' style='width: 50px; height: auto;'>";
+      break;
+    default:
+      winnerContent = winningSegment;
+      break;
+          }
+          winnerText.innerHTML = winnerContent;
+        
+          winnerPopup.style.display = 'block';
+        
+          setTimeout(() => {
+            winnerPopup.style.display = 'none';
+            hasSpecificWinner = false; // Reset for random spins
+          }, 3000);
+        
+          winnersHistory.unshift(winnerContent); // Add to history
+
+  if (winnersHistory.length > 10) {
+    winnersHistory.pop(); // Remove the oldest entry
+  }
+
+  // Update the winner list display
+  winnerList.innerHTML = '';
+  winnersHistory.forEach(winner => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = winner; // Allow HTML (for the image) in the list
+    listItem.style.width = '25px';
+    const img = listItem.querySelector('img');
+  if (img) {
+    img.style.width = '25px'; // Set image width to 25px
+    img.style.height = 'auto'; // Maintain aspect ratio
+  }
+    winnerList.appendChild(listItem);
+  });
+}
+        
+        
+        
+         startCountdown();
+              </script>
+</body>
+
+</html>
